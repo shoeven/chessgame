@@ -34,7 +34,7 @@ public class Chesspiece extends JLabel implements MouseListener{
 		setLayout(new GridLayout(1,0));
 		
 		try {
-			img = ImageIO.read(new File(color+piecename + ".png"));
+			img = ImageIO.read(new File(color+piecename+".png")); // Filnavn i prosjektmappe til bilder
 		} catch (IOException e) {}
 		Image resizedImg = img.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		imageicon = new ImageIcon(resizedImg);

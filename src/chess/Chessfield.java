@@ -77,7 +77,7 @@ public class Chessfield extends JPanel implements MouseListener{
 	private Color calcColor(int x, int y) {
 		boolean everyOtherSquare = ((y+1) % 2 == 0);
 		boolean everyOtherRow = ((x+1) % 2 == 0);
-		return (everyOtherSquare != everyOtherRow ? Color.WHITE : Color.BLACK);
+		return (everyOtherSquare != everyOtherRow ? new Color(182,155,76) : Color.WHITE);
 	}
 	
 	
