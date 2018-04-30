@@ -1,10 +1,10 @@
-package stockfish.model.processbuilderstrategy;
+package stockfishModelProcessbuilderstrategy;
 
 import java.io.BufferedReader;
 import java.util.Observable;
 
-import stockfish.model.IConfiguration;
-import stockfish.model.Messagetype;
+import stockfishModel.IConfiguration;
+import stockfishModel.Messagetype;
 
 public class StockfishProcess extends Observable implements IConfiguration  {
 	

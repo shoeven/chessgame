@@ -1,4 +1,4 @@
-package stockfish.model;
+package stockfishModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;

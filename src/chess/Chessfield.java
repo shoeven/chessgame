@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import stockfish.model.processbuilderstrategy.StockfishProcess;
+import stockfishModelProcessbuilderstrategy.StockfishProcess;
 
 public class Chessfield extends JPanel implements MouseListener{
 	

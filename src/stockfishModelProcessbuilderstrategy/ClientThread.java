@@ -1,4 +1,4 @@
-package stockfish.model.processbuilderstrategy;
+package stockfishModelProcessbuilderstrategy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.io.OutputStreamWriter;
 import org.apache.commons.lang3.StringUtils;
 
 import chess.PieceMovement;
-import stockfish.model.Messagetype;
-import stockfish.model.SuperStrategy;
+import stockfishModel.Messagetype;
+import stockfishModel.SuperStrategy;
 
 public class ClientThread  extends SuperStrategy  {
 

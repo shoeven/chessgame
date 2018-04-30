@@ -1,4 +1,4 @@
-package stockfish.model;
+package stockfishModel;
 
 public interface IConfiguration {
 	
