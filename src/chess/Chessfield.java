@@ -7,15 +7,16 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import stockfish.model.processbuilderstrategy.StockfishProcess;
+
 public class Chessfield extends JPanel implements MouseListener{
 	
+	private StockfishProcess sp;
 	private boolean occupied = false;
-	PieceMovement piecemovement = new PieceMovement();
+	private PieceMovement piecemovement = new PieceMovement();
 
 	public Chessfield(Playboard playboard, int x, int y) {
-		int a = x+1;//Så navnet skal gå fra 1-8 istedet for 0-7
-		int b = x+1;
-		setName(a+""+b); 
+		setFieldname(x,y); 
 		setLayout(new BorderLayout());
 		setSize(100,100);
 		setBackground(calcColor(x, y)); // Annenhver farge sort og hvit på brett
@@ -80,7 +81,12 @@ public class Chessfield extends JPanel implements MouseListener{
 		return (everyOtherSquare != everyOtherRow ? new Color(182,155,76) : Color.WHITE);
 	}
 	
-	
+	private void setFieldname(int x, int y) { // Setter korrekt navn på hver av sjakkrutene
+		char[] letter = new char[]{'a','b','c','d','e','f','g','h'};
+		char a = letter[y];
+		int b = (8-x);
+		setName(a+""+b);
+	}
 	
 	private boolean spawnWRook(int x, int y) { // hvite tårn
 		if (x==7) {
@@ -229,6 +235,8 @@ public class Chessfield extends JPanel implements MouseListener{
 			this.getName();
 			PieceMovement.setEndpos(this.getName());
 			revalidate();
+			
+			sp = new StockfishProcess();
 		}
 	}
 

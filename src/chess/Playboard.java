@@ -16,12 +16,9 @@ public class Playboard extends JFrame{
 	}
 	
 	private void drawFields() {
-		gamematrix = new Chessfield[8][8];
 		setLayout(new GridLayout(8,8));
 		for (int x=0; x<8; x++) {
 			for (int y=0;y<8; y++) {
-				Chessfield cf = new Chessfield(this, x, y);
-				gamematrix[x][y] = cf;
 				add(new Chessfield(this, x, y));
 			}
 		}

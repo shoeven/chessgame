@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 
 public class Chesspiece extends JLabel implements MouseListener{
 	
-	Chessfield chessfield;
 	PieceMovement piecemovement = new PieceMovement();
 	private ImageIcon imageicon;
 	private BufferedImage img = null;
