@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 
+import playerOne.PlayerOneClient;
+import playerTwo.PlayerTwoClient;
 import stockfishModelProcessbuilderstrategy.StockfishProcess;
 
 public class PieceMovement {
@@ -14,13 +16,16 @@ public class PieceMovement {
 	private static String endpos = ""; // sluttposisjon for brikke
 	private static char color; // farge på brikke (b eller w)
 	private static String fenstring = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // fenstring, hentes ut fra stockfish (debugwindow)
+	private static String movestring = "";
 	private static Component startpiece; // Den sjakkbrikken man først trykker på for å flytte
 	private static Chessfield endpiece; // Ruten man ønsker å flytte brikken til
 	private static Container startParent; // Parent til startpiece, altså det chessfield'et den tilhører
 	private static Color startColor; // startfarge på sjakkfelt, for å stille tilbake etter flytting
 	private static boolean clicked; // Om man har trykket på en brikke eller ikke
+	private static String currentPlayer;
 	
-
+	private PlayerOneClient poc;
+	private PlayerTwoClient ptc;
 
 	public static void movePiece() {
 		startpiece.getParent().remove(startpiece);
@@ -31,6 +36,12 @@ public class PieceMovement {
 		endpiece.getParent().repaint();
 		clicked = false;
 		new StockfishProcess();
+		if (currentPlayer=="playerOne") {
+			new PlayerOneClient();
+		}
+		else if (currentPlayer=="playerTwo") {
+			new PlayerTwoClient();
+		}
 	}
 	
 	public static void removePiece(Container parentfield, Chesspiece chesspiece, char c) {
@@ -110,5 +121,13 @@ public class PieceMovement {
 
 	public static Container getStartParent() {
 		return startParent;
+	}
+
+	public static void setMovestring(String s) {
+		movestring = s;
+	}
+
+	public static void setCurrentPlayer(String s) {
+		currentPlayer = s;
 	}
 }

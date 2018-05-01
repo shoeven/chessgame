@@ -36,6 +36,7 @@ public class ClientThread  extends SuperStrategy  {
 			String startpos = PieceMovement.getStartpos();
 			String endpos = PieceMovement.getEndpos();
 			String stringcommand = "position fen " + fenstring + " moves " + startpos + endpos;
+			PieceMovement.setMovestring(stringcommand);
 			// stockfish gets command
 			processWriter.write(stringcommand + "\n"); // Skriver commandstring til stockfish
 			processWriter.flush();

@@ -6,10 +6,16 @@ import javax.swing.JFrame;
 
 public class Playboard extends JFrame{
 	
-	protected Chessfield[][] gamematrix;
+	PieceMovement pm;
 	
-	public Playboard() {
-		setTitle("Sjakk");
+	public Playboard(String player) {
+		PieceMovement.setCurrentPlayer(player);
+		if (player == "playerOne") {
+			setTitle("Spiller 1");
+		}
+		if (player == "playerTwo") {
+			setTitle("Spiller 2");
+		}
 		drawFields();
 		setSize(800,800);
 		setVisible(true);
