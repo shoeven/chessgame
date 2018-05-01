@@ -7,6 +7,7 @@ public class PieceMovement {
 	private static String endpos = ""; // sluttposisjon for brikke
 	private static char color; // farge på brikke (b eller w)
 	private static String fenstring = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // fenstring, hentes ut fra stockfish (debugwindow)
+	private static Chesspiece startpiece;
 	
 	public static String getFenstring() {
 		return fenstring;
@@ -14,6 +15,10 @@ public class PieceMovement {
 
 	public static void setFenstring(String s) {
 		fenstring = s;
+	}
+	
+	public static void setStartLocation(Chesspiece cp) {
+		startpiece = cp;
 	}
 
 	public static char getColor() {

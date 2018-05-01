@@ -58,6 +58,7 @@ public class Chesspiece extends JLabel implements MouseListener{
 			parent.getParent().repaint();
 			((Chessfield) parent).setOccupied(false);
 		}
+		PieceMovement.setStartLocation(this);
 	}
 	
 	public String getPiecename() {
