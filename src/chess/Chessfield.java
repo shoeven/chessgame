@@ -12,8 +12,8 @@ import stockfishModelProcessbuilderstrategy.StockfishProcess;
 public class Chessfield extends JPanel implements MouseListener{
 	
 	private StockfishProcess sp;
-	private boolean occupied = false;
-	private PieceMovement piecemovement = new PieceMovement();
+	private char occupied = 'v';
+	private PieceMovement piecemovement;
 
 	public Chessfield(Playboard playboard, int x, int y) {
 		setFieldname(x,y); 
@@ -24,51 +24,51 @@ public class Chessfield extends JPanel implements MouseListener{
 		// Legger til alle sjakkbrikkene på starten av spillet.
 		if(spawnWPawn(x,y)) {
 			add(new Chesspiece("pawn", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if (spawnWRook(x,y)) {
 			add(new Chesspiece("rook", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if (spawnWKnight(x,y)) {
 			add(new Chesspiece("knight", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if (spawnWBishop(x,y)) {
 			add(new Chesspiece("bishop", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if (spawnWQueen(x,y)) {
 			add(new Chesspiece("queen", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if (spawnWKing(x,y)) {
 			add(new Chesspiece("king", 'w'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'w';
 		}
 		if(spawnBPawn(x,y)) {
 			add(new Chesspiece("pawn", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		if (spawnBRook(x,y)) {
 			add(new Chesspiece("rook", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		if (spawnBKnight(x,y)) {
 			add(new Chesspiece("knight", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		if (spawnBBishop(x,y)) {
 			add(new Chesspiece("bishop", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		if (spawnBQueen(x,y)) {
 			add(new Chesspiece("queen", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		if (spawnBKing(x,y)) {
 			add(new Chesspiece("king", 'b'), BorderLayout.CENTER);
-			occupied = true;
+			occupied = 'b';
 		}
 		
 		setVisible(true);
@@ -202,8 +202,8 @@ public class Chessfield extends JPanel implements MouseListener{
 		}
 	}
 	
-	public void setOccupied(boolean a) {
-		occupied = a;
+	public void setOccupied(char c) {
+		occupied = c;
 	}
 
 	@Override
@@ -225,18 +225,12 @@ public class Chessfield extends JPanel implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		String piecename = PieceMovement.getPiecename();
-		char color = PieceMovement.getColor();
-		if (occupied == false && piecename != "") {
-			color = PieceMovement.getColor();
-			add(new Chesspiece(piecename, color), BorderLayout.CENTER);
-			occupied = true;
-			PieceMovement.setPiecename("");
+		if (PieceMovement.getClicked()) {
 			this.getName();
 			PieceMovement.setEndpos(this.getName());
-			revalidate();
-			
-			sp = new StockfishProcess();
+			PieceMovement.setEndLocation(this);
+			PieceMovement.movePiece();
+			PieceMovement.setPiecename("");
 		}
 	}
 

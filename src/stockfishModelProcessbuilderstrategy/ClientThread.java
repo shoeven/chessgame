@@ -49,7 +49,6 @@ public class ClientThread  extends SuperStrategy  {
 			String result = "";
 			while (!(l = processReader.readLine()).equals("readyok")) {
 				result += l + "\n";
-				System.out.println(result);
 			}
 			if (result.contains("Fen")) { // Leter etter fen-streng i resultatet.
 				String newFen= StringUtils.substringBetween(result,"Fen: ", "Key").trim();

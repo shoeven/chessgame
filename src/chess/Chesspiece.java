@@ -1,5 +1,6 @@
 package chess;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -16,11 +17,13 @@ import javax.swing.JLabel;
 
 public class Chesspiece extends JLabel implements MouseListener{
 	
-	PieceMovement piecemovement = new PieceMovement();
+	PieceMovement piecemovement;
 	private ImageIcon imageicon;
 	private BufferedImage img = null;
 	private String piecename ="";
 	private char color;
+	private Container parent;
+	private Chessfield cf;
 	
 	public Chesspiece(String p, char c) {
 		piecename = p;
@@ -48,17 +51,27 @@ public class Chesspiece extends JLabel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		Component a = (Component) arg0.getSource();
-		if (a != null) {
-			Container parent = a.getParent();
+		if (a != null && !PieceMovement.getClicked()) {
+			PieceMovement.setClicked(true);
+			parent = a.getParent();
+			PieceMovement.setStartParent(parent, parent.getBackground());
+			parent.setBackground(Color.GRAY);
 			PieceMovement.setStartpos(parent.getName());
 			piecename = a.getName();
 			PieceMovement.setColor(color);
 			PieceMovement.setPiecename(piecename);
-			parent.remove(a);
-			parent.getParent().repaint();
-			((Chessfield) parent).setOccupied(false);
+			PieceMovement.setStartLocation(this);
 		}
-		PieceMovement.setStartLocation(this);
+		else if (PieceMovement.getClicked() && parent != PieceMovement.getStartParent()) {
+			PieceMovement.removePiece(getParent(), this, this.color);
+		}
+		else if (PieceMovement.getClicked() && parent == PieceMovement.getStartParent()) {
+			parent.setBackground(PieceMovement.getStartColor());
+			System.out.println((PieceMovement.getStartParent().getBackground()).toString());
+			PieceMovement.setPiecename("");
+			PieceMovement.setStartLocation(null);
+			PieceMovement.setClicked(false);
+		}
 	}
 	
 	public String getPiecename() {

@@ -1,5 +1,12 @@
 package chess;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+
+import stockfishModelProcessbuilderstrategy.StockfishProcess;
+
 public class PieceMovement {
 
 	private static String piecename = ""; // navn på brikke (feks pawn)
@@ -7,7 +14,38 @@ public class PieceMovement {
 	private static String endpos = ""; // sluttposisjon for brikke
 	private static char color; // farge på brikke (b eller w)
 	private static String fenstring = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // fenstring, hentes ut fra stockfish (debugwindow)
-	private static Chesspiece startpiece;
+	private static Component startpiece; // Den sjakkbrikken man først trykker på for å flytte
+	private static Chessfield endpiece; // Ruten man ønsker å flytte brikken til
+	private static Container startParent; // Parent til startpiece, altså det chessfield'et den tilhører
+	private static Color startColor; // startfarge på sjakkfelt, for å stille tilbake etter flytting
+	private static boolean clicked; // Om man har trykket på en brikke eller ikke
+	
+
+
+	public static void movePiece() {
+		startpiece.getParent().remove(startpiece);
+		startpiece.revalidate();
+		endpiece.add(new Chesspiece(piecename, color), BorderLayout.CENTER);
+		startParent.setBackground(startColor);
+		endpiece.revalidate();
+		endpiece.getParent().repaint();
+		clicked = false;
+		new StockfishProcess();
+	}
+	
+	public static void removePiece(Container parentfield, Chesspiece chesspiece, char c) {
+		if (color != c) { 
+			parentfield.remove(chesspiece);
+		}
+	}
+	
+	public static boolean getClicked() {
+		return clicked;
+	}
+
+	public static void setClicked(boolean b) {
+		clicked = b;
+	}
 	
 	public static String getFenstring() {
 		return fenstring;
@@ -17,8 +55,16 @@ public class PieceMovement {
 		fenstring = s;
 	}
 	
-	public static void setStartLocation(Chesspiece cp) {
-		startpiece = cp;
+	public static void setStartLocation(Component c) {
+		startpiece = c;
+	}
+	
+	public static Component getStartLocation() {
+		return startpiece;
+	}
+	
+	public static void setEndLocation (Chessfield cf) {
+		endpiece = cf;
 	}
 
 	public static char getColor() {
@@ -51,5 +97,18 @@ public class PieceMovement {
 
 	public static void setPiecename(String p) {
 		piecename = p;
+	}
+
+	public static void setStartParent(Container parent, Color col) {
+		startParent = parent;
+		startColor = col;
+	}
+	
+	public static Color getStartColor() {
+		return startColor;
+	}
+
+	public static Container getStartParent() {
+		return startParent;
 	}
 }
