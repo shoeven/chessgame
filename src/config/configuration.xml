@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Nettverk>
+    <ipadresse type="1">
+    <IpPlayer1>127.0.0.1</IpPlayer1>
+    <IpPlayer2>127.0.0.1</IpPlayer2>
+    </ipadresse>
+</Nettverk>

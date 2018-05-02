@@ -5,13 +5,16 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import chess.PieceMovement;
+import config.ReadXMLfile;
 
 public class PlayerTwoClient {
 	
 	PieceMovement pm;
+	ReadXMLfile rxf;
 
 	public PlayerTwoClient() {
-		String machineName = "127.0.0.1"; // IP til PlayerOneServer
+		rxf = new ReadXMLfile();
+		String machineName = ReadXMLfile.getIpPlayer1(); // IP til PlayerOneServer
 		String fenstring = PieceMovement.getFenstring();
 		String startpos = PieceMovement.getStartpos();
 		String endpos = PieceMovement.getEndpos();
