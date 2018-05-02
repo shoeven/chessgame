@@ -51,7 +51,7 @@ public class ClientThread  extends SuperStrategy  {
 			if (result.contains("Fen")) { // Leter etter fen-streng i resultatet.
 				String newFen= StringUtils.substringBetween(result,"Fen: ", "Key").trim();
 				PieceMovement.setFenstring(newFen);
-			}
+			}	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

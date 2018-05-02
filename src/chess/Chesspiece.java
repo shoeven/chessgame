@@ -23,7 +23,6 @@ public class Chesspiece extends JLabel implements MouseListener{
 	private String piecename ="";
 	private char color;
 	private Container parent;
-	private Chessfield cf;
 	
 	public Chesspiece(String p, char c) {
 		piecename = p;

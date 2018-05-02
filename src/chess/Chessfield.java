@@ -13,10 +13,9 @@ import stockfishModelProcessbuilderstrategy.StockfishProcess;
 
 public class Chessfield extends JPanel implements MouseListener{
 	
-	private StockfishProcess sp;
-	private char occupied = 'v';
+	private char occupied = 'v'; // v for vacant, b hvis svart okkuperer, w for hvit
 	private PieceMovement piecemovement;
-	public static List<Chessfield> fieldList = new ArrayList<>();
+	public static List<Chessfield> fieldList = new ArrayList<>(); // ArrayList for å kunne kalle opp metoder i hver enkelt felt fra PieceMovement
 
 	public Chessfield(Playboard playboard, int x, int y) {
 		setFieldname(x,y); 

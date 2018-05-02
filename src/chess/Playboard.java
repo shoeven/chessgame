@@ -25,7 +25,7 @@ public class Playboard extends JFrame {
 		setVisible(true);
 	}
 	
-	private void drawFields() {
+	private void drawFields() { // Genererer spillefeltene
 		setLayout(new GridLayout(8,8));
 		for (int x=0; x<8; x++) {
 			for (int y=0;y<8; y++) {

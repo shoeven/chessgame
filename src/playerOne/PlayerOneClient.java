@@ -11,7 +11,7 @@ public class PlayerOneClient {
 	PieceMovement pm;
 
 	public PlayerOneClient() {
-		String machineName = "127.0.0.1";
+		String machineName = "127.0.0.1"; // IP til PlayerTwoServer
 		String fenstring = PieceMovement.getFenstring();
 		String startpos = PieceMovement.getStartpos();
 		String endpos = PieceMovement.getEndpos();
