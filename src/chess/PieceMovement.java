@@ -41,6 +41,7 @@ public class PieceMovement {
 		else if (currentPlayer=="playerTwo") {
 			new PlayerTwoClient();
 		}
+		yourTurn = false;
 	}
 	
 	public static void updateBoard() throws ClassNotFoundException, InterruptedException { // Oppdaterer brettet når serveren får info fra klient om trekk fra motspiller
@@ -54,12 +55,7 @@ public class PieceMovement {
 		chessfieldEnd.revalidate();
 		chessfieldEnd.getParent().repaint();
 		new StockfishProcess();
-		if (yourTurn) {
-			yourTurn = false;
-		}
-		else if (!yourTurn) {
-			yourTurn = true;
-		}
+		yourTurn = true;
 	}
 	
 	private static Chessfield findChessfield(String s) {

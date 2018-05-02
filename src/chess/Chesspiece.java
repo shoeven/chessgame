@@ -50,8 +50,10 @@ public class Chesspiece extends JLabel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		String currentPlayer = PieceMovement.getCurrentPlayer();
 		if (PieceMovement.getYourTurn()) {
 			Component a = (Component) arg0.getSource();
+			if ((currentPlayer=="playerOne" && color=='w') || (currentPlayer=="playerTwo" && color=='b'))
 			if (a != null && !PieceMovement.getClicked()) {
 				PieceMovement.setClicked(true);
 				parent = a.getParent();

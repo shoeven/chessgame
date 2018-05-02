@@ -25,7 +25,6 @@ public class PlayerTwoClient {
 			out.writeObject(outputArray); // Hva som skal sendes til serveren
 			out.flush();
 		} catch (Exception e) {}
-		;
 	}
 	
 }

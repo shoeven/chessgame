@@ -12,12 +12,12 @@ public class Playboard extends JFrame {
 		PieceMovement.setCurrentPlayer(player);
 		if (player == "playerOne") {
 			PieceMovement.setYourTurn(true);
-			setTitle("Spiller 1");
+			setTitle("Spiller 1 (hvit)");
 			setLocation(50,150);
 		}
 		if (player == "playerTwo") {
 			PieceMovement.setYourTurn(false);
-			setTitle("Spiller 2");
+			setTitle("Spiller 2 (sort)");
 			setLocation(600,150);
 		}
 		drawFields();
