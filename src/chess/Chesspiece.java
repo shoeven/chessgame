@@ -64,7 +64,11 @@ public class Chesspiece extends JLabel implements MouseListener{
 				PieceMovement.setStartLocation(this);
 			}
 			else if (PieceMovement.getClicked() && parent != PieceMovement.getStartParent()) {
-				PieceMovement.removePiece(getParent(), this, this.color);
+				try {
+					PieceMovement.removePiece(getParent(), this, this.color);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 			else if (PieceMovement.getClicked() && parent == PieceMovement.getStartParent()) {
 				parent.setBackground(PieceMovement.getStartColor());

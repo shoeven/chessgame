@@ -72,9 +72,12 @@ public class PieceMovement {
 		return null;
 	}
 	
-	public static void removePiece(Container parentfield, Chesspiece chesspiece, char c) {
+	public static void removePiece(Container parentfield, Chesspiece chesspiece, char c) throws InterruptedException {
 		if (color != c) { 
+			endpos = parentfield.getName();
+			endpiece = (Chessfield) parentfield;
 			parentfield.remove(chesspiece);
+			movePiece();
 		}
 	}
 	
