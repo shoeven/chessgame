@@ -4,20 +4,24 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-public class Playboard extends JFrame{
+public class Playboard extends JFrame {
 	
-	PieceMovement pm;
+	private PieceMovement pm;
 	
 	public Playboard(String player) {
 		PieceMovement.setCurrentPlayer(player);
 		if (player == "playerOne") {
+			PieceMovement.setYourTurn(true);
 			setTitle("Spiller 1");
+			setLocation(50,150);
 		}
 		if (player == "playerTwo") {
+			PieceMovement.setYourTurn(false);
 			setTitle("Spiller 2");
+			setLocation(600,150);
 		}
 		drawFields();
-		setSize(800,800);
+		setSize(500,500);
 		setVisible(true);
 	}
 	
@@ -29,4 +33,5 @@ public class Playboard extends JFrame{
 			}
 		}
 	}
+	
 }

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -14,6 +16,7 @@ public class Chessfield extends JPanel implements MouseListener{
 	private StockfishProcess sp;
 	private char occupied = 'v';
 	private PieceMovement piecemovement;
+	public static List<Chessfield> fieldList = new ArrayList<>();
 
 	public Chessfield(Playboard playboard, int x, int y) {
 		setFieldname(x,y); 
@@ -73,6 +76,8 @@ public class Chessfield extends JPanel implements MouseListener{
 		
 		setVisible(true);
 		addMouseListener(this);
+		
+		fieldList.add(this);
 	}
 	
 	private Color calcColor(int x, int y) {
@@ -81,6 +86,10 @@ public class Chessfield extends JPanel implements MouseListener{
 		return (everyOtherSquare != everyOtherRow ? new Color(182,155,76) : Color.WHITE);
 	}
 	
+	public static List<Chessfield> getFieldList() {
+		return fieldList;
+	}
+
 	private void setFieldname(int x, int y) { // Setter korrekt navn på hver av sjakkrutene
 		char[] letter = new char[]{'a','b','c','d','e','f','g','h'};
 		char a = letter[y];
@@ -229,7 +238,11 @@ public class Chessfield extends JPanel implements MouseListener{
 			this.getName();
 			PieceMovement.setEndpos(this.getName());
 			PieceMovement.setEndLocation(this);
-			PieceMovement.movePiece();
+			try {
+				PieceMovement.movePiece();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			PieceMovement.setPiecename("");
 		}
 	}

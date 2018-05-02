@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.util.List;
 
 import playerOne.PlayerOneClient;
 import playerTwo.PlayerTwoClient;
@@ -16,18 +17,16 @@ public class PieceMovement {
 	private static String endpos = ""; // sluttposisjon for brikke
 	private static char color; // farge på brikke (b eller w)
 	private static String fenstring = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // fenstring, hentes ut fra stockfish (debugwindow)
-	private static String movestring = "";
+	private static String movestring = ""; // Hele strengen som skal inn i stockfish, hentes fra ClientThread
 	private static Component startpiece; // Den sjakkbrikken man først trykker på for å flytte
 	private static Chessfield endpiece; // Ruten man ønsker å flytte brikken til
 	private static Container startParent; // Parent til startpiece, altså det chessfield'et den tilhører
 	private static Color startColor; // startfarge på sjakkfelt, for å stille tilbake etter flytting
 	private static boolean clicked; // Om man har trykket på en brikke eller ikke
 	private static String currentPlayer;
-	
-	private PlayerOneClient poc;
-	private PlayerTwoClient ptc;
+	private static boolean yourTurn;
 
-	public static void movePiece() {
+	public static void movePiece() throws InterruptedException { // Beveger en brikke lokalt, sender melding til motspiller om trekk
 		startpiece.getParent().remove(startpiece);
 		startpiece.revalidate();
 		endpiece.add(new Chesspiece(piecename, color), BorderLayout.CENTER);
@@ -44,10 +43,47 @@ public class PieceMovement {
 		}
 	}
 	
+	public static void updateBoard() throws ClassNotFoundException, InterruptedException { // Oppdaterer brettet når serveren får info fra klient om trekk fra motspiller
+		Chessfield chessfieldStart = findChessfield(startpos);
+		Chessfield chessfieldEnd = findChessfield(endpos);
+		chessfieldStart.removeAll();
+		chessfieldStart.revalidate();
+		chessfieldStart.getParent().repaint();
+		chessfieldEnd.removeAll();
+		chessfieldEnd.add(new Chesspiece(piecename, color), BorderLayout.CENTER);
+		chessfieldEnd.revalidate();
+		chessfieldEnd.getParent().repaint();
+		new StockfishProcess();
+		if (yourTurn) {
+			yourTurn = false;
+		}
+		else if (!yourTurn) {
+			yourTurn = true;
+		}
+	}
+	
+	private static Chessfield findChessfield(String s) {
+		List<Chessfield> fieldList = Chessfield.getFieldList();
+		for (Chessfield chessfield : fieldList) {
+			if (s.equals(chessfield.getName())) {
+				return chessfield;
+			}
+		}
+		return null;
+	}
+	
 	public static void removePiece(Container parentfield, Chesspiece chesspiece, char c) {
 		if (color != c) { 
 			parentfield.remove(chesspiece);
 		}
+	}
+	
+	public static boolean getYourTurn() {
+		return yourTurn;
+	}
+
+	public static void setYourTurn(boolean yourTurn) {
+		PieceMovement.yourTurn = yourTurn;
 	}
 	
 	public static boolean getClicked() {
@@ -126,8 +162,17 @@ public class PieceMovement {
 	public static void setMovestring(String s) {
 		movestring = s;
 	}
+	
+	public static String getMovestring() {
+		movestring = "position fen " + fenstring + " moves " + startpos + endpos;
+		return movestring;
+	}
 
 	public static void setCurrentPlayer(String s) {
 		currentPlayer = s;
+	}
+	
+	public static String getCurrentPlayer() {
+		return currentPlayer;
 	}
 }

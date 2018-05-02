@@ -50,27 +50,28 @@ public class Chesspiece extends JLabel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		Component a = (Component) arg0.getSource();
-		if (a != null && !PieceMovement.getClicked()) {
-			PieceMovement.setClicked(true);
-			parent = a.getParent();
-			PieceMovement.setStartParent(parent, parent.getBackground());
-			parent.setBackground(Color.GRAY);
-			PieceMovement.setStartpos(parent.getName());
-			piecename = a.getName();
-			PieceMovement.setColor(color);
-			PieceMovement.setPiecename(piecename);
-			PieceMovement.setStartLocation(this);
-		}
-		else if (PieceMovement.getClicked() && parent != PieceMovement.getStartParent()) {
-			PieceMovement.removePiece(getParent(), this, this.color);
-		}
-		else if (PieceMovement.getClicked() && parent == PieceMovement.getStartParent()) {
-			parent.setBackground(PieceMovement.getStartColor());
-			System.out.println((PieceMovement.getStartParent().getBackground()).toString());
-			PieceMovement.setPiecename("");
-			PieceMovement.setStartLocation(null);
-			PieceMovement.setClicked(false);
+		if (PieceMovement.getYourTurn()) {
+			Component a = (Component) arg0.getSource();
+			if (a != null && !PieceMovement.getClicked()) {
+				PieceMovement.setClicked(true);
+				parent = a.getParent();
+				PieceMovement.setStartParent(parent, parent.getBackground());
+				parent.setBackground(Color.GRAY);
+				PieceMovement.setStartpos(parent.getName());
+				piecename = a.getName();
+				PieceMovement.setColor(color);
+				PieceMovement.setPiecename(piecename);
+				PieceMovement.setStartLocation(this);
+			}
+			else if (PieceMovement.getClicked() && parent != PieceMovement.getStartParent()) {
+				PieceMovement.removePiece(getParent(), this, this.color);
+			}
+			else if (PieceMovement.getClicked() && parent == PieceMovement.getStartParent()) {
+				parent.setBackground(PieceMovement.getStartColor());
+				PieceMovement.setPiecename("");
+				PieceMovement.setStartLocation(null);
+				PieceMovement.setClicked(false);
+			}
 		}
 	}
 	

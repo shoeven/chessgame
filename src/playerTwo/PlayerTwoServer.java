@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 import chess.PieceMovement;
 import chess.Playboard;
 
@@ -39,7 +41,8 @@ public class PlayerTwoServer {
 class ConnectionHandler extends Thread {
 
 	private Socket socket;
-
+	private PieceMovement pm;
+	
 	public ConnectionHandler(Socket isocket) {
 		socket = isocket;
 	}
@@ -47,18 +50,14 @@ class ConnectionHandler extends Thread {
 	public void run() {
 		try {
 			InputStream inps = socket.getInputStream();
-			OutputStream outps = socket.getOutputStream();
-
-			ObjectOutputStream output = new ObjectOutputStream(outps);
 			ObjectInputStream input = new ObjectInputStream(inps);
-
-			String finn = (String) input.readObject();
-			if (finn.equals("Hei!")) {
-				String s = "Server2 sier: Spiller 1 gjorde et trekk";
-				System.out.println(s);
-			}
-			output.writeObject(null);
-			output.close();
+			String[] inputArray = (String[]) input.readObject();
+			PieceMovement.setFenstring(inputArray[0]);
+			PieceMovement.setStartpos(inputArray[1]);
+			PieceMovement.setEndpos(inputArray[2]);
+			PieceMovement.setPiecename(inputArray[3]);
+			PieceMovement.setColor(inputArray[4].charAt(0));
+			PieceMovement.updateBoard();
 		} catch (Exception e) {
 			System.out.println("Error " + e);
 		}

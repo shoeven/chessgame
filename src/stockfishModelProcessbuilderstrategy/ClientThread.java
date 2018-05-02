@@ -8,7 +8,8 @@ import java.io.OutputStreamWriter;
 import org.apache.commons.lang3.StringUtils;
 
 import chess.PieceMovement;
-import stockfishModel.Messagetype;
+import playerOne.PlayerOneClient;
+import playerTwo.PlayerTwoClient;
 import stockfishModel.SuperStrategy;
 
 public class ClientThread  extends SuperStrategy  {
@@ -32,13 +33,9 @@ public class ClientThread  extends SuperStrategy  {
 	
 	public void talkToStockfish() {
 		try {
-			String fenstring = PieceMovement.getFenstring();
-			String startpos = PieceMovement.getStartpos();
-			String endpos = PieceMovement.getEndpos();
-			String stringcommand = "position fen " + fenstring + " moves " + startpos + endpos;
-			PieceMovement.setMovestring(stringcommand);
+			String movestring = PieceMovement.getMovestring();
 			// stockfish gets command
-			processWriter.write(stringcommand + "\n"); // Skriver commandstring til stockfish
+			processWriter.write(movestring + "\n"); // Skriver commandstring til stockfish
 			processWriter.flush();
 			processWriter.write("d" + "\n"); // For å hente ut fen-streng
 			processWriter.flush();
