@@ -17,14 +17,13 @@ public class PieceMovement {
 	private static String endpos = ""; // sluttposisjon for brikke
 	private static char color; // farge på brikke (b eller w)
 	private static String fenstring = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // fenstring, hentes ut fra stockfish (debugwindow)
-	private static String movestring = ""; // Hele strengen som skal inn i stockfish, hentes fra ClientThread
 	private static Component startpiece; // Den sjakkbrikken man først trykker på for å flytte
 	private static Chessfield endpiece; // Ruten man ønsker å flytte brikken til
 	private static Container startParent; // Parent til startpiece, altså det chessfield'et den tilhører
 	private static Color startColor; // startfarge på sjakkfelt, for å stille tilbake etter flytting
 	private static boolean clicked; // Om man har trykket på en brikke eller ikke
-	private static String currentPlayer;
-	private static boolean yourTurn;
+	private static String currentPlayer; // Om spillebrettet er for spiller 1 eller 2
+	private static boolean yourTurn; // Om det er din tur eller ikke
 
 	public static void movePiece() throws InterruptedException { // Beveger en brikke lokalt, sender melding til motspiller om trekk
 		startpiece.getParent().remove(startpiece);
@@ -157,13 +156,9 @@ public class PieceMovement {
 	public static Container getStartParent() {
 		return startParent;
 	}
-
-	public static void setMovestring(String s) {
-		movestring = s;
-	}
 	
 	public static String getMovestring() {
-		movestring = "position fen " + fenstring + " moves " + startpos + endpos;
+		String movestring = "position fen " + fenstring + " moves " + startpos + endpos;
 		return movestring;
 	}
 
